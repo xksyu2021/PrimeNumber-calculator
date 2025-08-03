@@ -5,6 +5,16 @@
 #include <fstream>
 #include <iostream>
 
+#ifdef _UNICODE
+#if defined _M_IX86
+#pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='x86' publicKeyToken='6595b64144ccf1df' language='*'\"")
+#elif defined _M_X64
+#pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='amd64' publicKeyToken='6595b64144ccf1df' language='*'\"")
+#else
+#pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
+#endif
+#endif
+
 //basic
 static TCHAR szWindowClass[] = _T("pnc");
 static TCHAR szTitle[] = _T("Prime number calculator");
@@ -163,6 +173,17 @@ int WINAPI WinMain(
          MessageBox(NULL, _T("Control creating failed!"), szTitle, MB_ICONERROR);
          return 1;
      }
+
+     HFONT hFont = CreateFont(
+         24,
+         0, 0, 0, 
+         FW_NORMAL, FALSE, FALSE, FALSE, 
+         DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+         ANTIALIASED_QUALITY,
+         FF_ROMAN,
+         L"Arial"   
+     );
+     SendMessage(hOutput, WM_SETFONT, (WPARAM)hFont, TRUE);
 
     // vision_able
     ShowWindow(hWnd,
