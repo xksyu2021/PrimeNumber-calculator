@@ -58,7 +58,7 @@ static void pnc(int a, int b,HWND hwnd)
             else j++;
             if (j == i - 3)
             {
-                output << " " << i;
+                output  << i << " ";
                 break;
             }
         }
